@@ -1,0 +1,143 @@
+
+
+\subsection{Producing the activity plan}
+
+After the app generates the dataset of POIs and the
+user's travel interest vector, we formulate an
+efficient activity plan using these two inputs. This
+itinerary generator is based on the existing state of
+the art activity planners~\cite{Sylejmani2017, Wisittipanich2020}
+with some adjustments: We wanted the trip's output to take the
+form of an itinerary.  The problem takes the form of
+the `day' and `night'  category split discussed in
+the literature review.  The scoring of itineraries is adjusted
+with the travel interest vector.
+
+The problem definition of our novel itinerary planner
+is mathematically formulated as follows. A tourist trip is made up
+of some pre-defined user constants alongside the travel interest
+vector. The predefined constants are:
+\\
+\input{Methodology/maths.tex}
+
+%\input{sections/methodology/travelProducts.tex}
+
+%\subsubsection{}
+\subsubsection{Optimisation Algorithms}
+
+The following will discuss the steps required to
+produce the two timetable optimisation algorithms. PSO
+and GAs are two meta-heuristics that use a population
+to converge to a fit solution. Therefore, they require
+an initial random generation of possible timetables. In
+our algorithm, we introduce a method of randomisation
+bias which will be discussed before the algorithms.
+
+
+\paragraph{Random Bias}
+With this technique, the randomness of the initial
+population is weighted based on two components.
+\begin{enumerate}
+
+    \item  the place's rating and 
+
+    \item the place's number of ratings.
+\end{enumerate}
+
+
+Before the algorithm starts each POI will be given a score 
+that will determine its probability of being chosen as
+part of the initial population. For example, if a
+POI $i$ has a rating, 
+$r_i$ which a value from 0 to 5, and
+the number of ratings from users $z_i$. The score of $i$
+is calculated using the following equation:
+
+    \begin{center}
+        score = $\frac{r_i}{5}+\frac{z_i}{\text{max}(\sum_{j=0}^{N}{z_j})}$
+
+    \end{center}
+%\[ \text{score} = (p_i)p_i\text{.rating}\]
+
+This bias gives a head start to the algorithm
+rather than just starting optimising from purely
+random itineraries, highly likely to be of bad
+quality.
+
+%\input{sections/methodology/psoAlgorithm.tex}
+
+
+\paragraph{Particle Swarm Optimisation}
+
+In PSO, the whole population is referred to as the
+swarm, whilst a single member a particle. Each
+particle has a 2-dimensional position(P) vector
+representing the current timetable solution and a
+2-dimensional velocity(V) vector expressing the direction
+of the particle during its search period. 
+
+The algorithm has six integer parameters including the
+number of particles and the number of iterations. The
+personal acceleration (PA) affects how far away the
+particle moves from the personal best position (PB). 
+The global best acceleration (GA) attracts the global
+best position (GB) of the whole swarm. 
+The inertia (I) constant helps the particle
+explore new solutions and escape the local minima
+through randomness. 
+
+At each
+iteration, the new velocity is calculated using
+\begin{center}
+    new velocity = I + (PA * (PB - P)) + (GA * (GB - P))
+\end{center}
+
+the new position is calculated using
+\begin{center}
+    new position = P + new velocity 
+\end{center}
+
+After a few iterations have passed, particles use
+their velocity and move towards the optimum position.
+We demonstrate the framework of our PSO algorithm in
+algorithm \ref{PSOAlgorithm}.
+
+
+\paragraph{Genetic Algorithms}
+
+Genetics algorithms use biological terms to describe
+their attributes. For example, a timetable solution in
+population is referred to as a chromosome~\ref{Abbaspour2011}. 
+
+In PSO, the algorithm optimises by allowing each
+particle to move closer to the global best every
+iteration. In comparison, in GAs, first, the best
+chromosomes known as the elites are selected from each
+iteration. Then, three techniques, namely selection,
+mutation, and crossover, are applied to generate the
+next population.
+
+We used the geneticalgorithm2 package~\footnote{https://pypi.org/project/geneticalgorithm2/},
+which allowed us to use the same score function and
+the random bias to initialise the particles. The
+algorithm has 7 parameters. The parents portion
+represents the number of parents who will reproduce
+and create the next generation. The mutation
+probability determines the chance a POI in a
+chromosome will be replaced by a random value to which
+the algorithm will converge less quickly and explore
+more of the search space. The crossover probability
+will affect the chance that part of its solution goes
+to the child. Finally, the elite ratio determines how
+much of the best chromosomes in an iteration make it
+to the next iteration.  There are many types of
+crossovers techniques. In this algorithm, we
+explored \textit{one point, two point, uniform and shuffle crossover}.  The algorithm produced the following
+steps: \\
+\textbf{Step 1}: Initialise the first population using random bias. \\
+\textbf{Step 2}: Select the best chromosomes from the population. \\ 
+\textbf{Step 3}: Select the elite particles that will make it to the next iteration.\\
+\textbf{Step 3}: Apply Crossover, Mutation and Selection on the population. \\
+\textbf{Step 4}: Check if the number of iterations has exceeded. 
+
+

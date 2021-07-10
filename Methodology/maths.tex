@@ -1,0 +1,77 @@
+\setlength{\tabcolsep}{20pt}
+
+\begin{tabular}{l l}
+
+\textit{M}:  &  The number of travelling days \\
+\textit{C}: & The activity pace (ie. the greater the \\
+ & C value, the more activities are generated in \\
+ & a day) \\  
+\end{tabular}
+\\
+\\
+\\
+The objective function of our itinerary planner is:
+
+\[ \text{MAX}  \sum_{m=0}^{M} ( S_{{D_m}} + S_{{E_m}}) \]
+where:
+\\
+\begin{tabular}{l l}
+% \textit{i,j}:  &  POI (\textit{i,j} = 2,3,...,\textit{N}) \\
+\textit{m} & Travelling day (\textit{m}=1,2,\ldots, textit{M}) \\ 
+\textit{$D_m$} & Morning section of day number m \\  
+\textit{$E_m$} & Evening section of day number m \\  
+\textit{$S_{D_m}$} & Score of the morning section $D_m$ \\  
+\textit{$S_{E_m}$} & Score of the evening section $E_m$ \\  
+\end{tabular}
+\\
+\\
+
+A day is made up of the morning ${D_m}$ section and
+the evening ${E_m}$ section. The timetable suggests a
+POI in the morning, then somewhere to eat, and the
+rest is dependant on the activity pace C. That is why
+the morning section is made up of $C + 2$ tourist
+attractions. The evening section suggests a place to
+eat and a POI; therefore, the evening section is just
+made up of $2$. 
+
+
+\[D_m = Y_i + Y_f + C ( Y_i) \]
+\[E_m = Y_f + Y_j \]
+
+\begin{tabular}{l l}
+
+\textit{i} & Morning Tourist attraction (i = 1, 2, 3,…, $n_1$)\\
+\textit{j} & Evening Tourist attraction (j = 1,2, 3,…, $n_2$)\\
+\textit{f} & Food Place (f = 1,2, 3,…, $n_3$)\\
+\textit{$Y_{i|f|j}$}: & 1 if a tourist visit attraction i, j or f and  0 if otherwise\\
+\end{tabular}
+\\ 
+\\
+\begin{tabular}{l l}
+\textbf{Constraints} & \\
+\textit{$ \sum_{m=0}^{M}\sum_{i=0}^{n_1}{Y_i} \leq 1$} & Ensures that all morning tourist attractions are \\ & not visited more than once throughout the whole \\ & itinerary\\
+
+\textit{$ \sum_{m=0}^{M}\sum_{j=0}^{n_1}{Y_j} \leq 1$} & Ensures that all evening tourist attractions are \\ & not visited only once throughout the whole \\ & itinerary\\
+
+
+\end{tabular}
+
+\subsubsection{Calculation of Score}
+
+The score $S_{D_m}$ or $S_{E_m}$ is calculated using
+
+\[ S_{D_m | E_m} = \frac{1}{T} + R + V\]
+
+where:
+\\
+\begin{tabular}{l l}
+% \textit{i,j}:  &  POI (\textit{i,j} = 2,3,...,\textit{N}) \\
+\textit{T} & Total distance between each tourist attractions in the \\ & morning/evening of day m\\ 
+\textit{R} & Average rating of the tourist attractions in the \\ & morning/evening of day m \\  
+\textit{V} & how much the tourist attractions of the \\ & morning/evening of day m match with the user's \\ & travel interest vector \\  
+
+\end{tabular}
+\\
+\\
+

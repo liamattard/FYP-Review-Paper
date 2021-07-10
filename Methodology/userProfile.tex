@@ -1,0 +1,108 @@
+\subsection{Generating the User Profile}
+
+Many people are present on social media posting
+pictures of their travel moments~\cite{Miller2016}. For this reason, we opted to
+build a user profile from the user's online presence.
+
+A travel interest vector is made up a vector of six integer values
+\[<v_0, v_1, v_2, v_3, v_4, v_5>\] representing the user profile.
+Each element represents the following POI categories 0 Beach,1 Nature,2
+Shopping,3 Museums,4 Clubbing and 5 Bars.
+    
+
+At the start of the application, the
+travel interest vector is initialised with zero
+values, and the app increments a category whenever the
+user's content matches. $v_0$ to $v_3$ represents morning categories
+and $v_4$, $v_5$ represent evening categories. After
+the data collection process is complete, the
+morning and evening vector values are normalised independently. 
+
+Facebook's API that allows users to connect both their Facebook
+and Instagram accounts and request content from the user with their permission.
+The app requests the photos and the liked pages used to 
+populate the user's travel interest
+vector. 
+
+\subsubsection{Transforming the liked pages into the travel interest vector}
+
+The API's documentation contains a whole list of possible
+page categories. 
+%TODO: Add Url
+%https://www.facebook.com/pages/category. 
+The app iterates through all of these user's liked
+page categories and increments a value in the travel
+interest vector whenever the Facebook result matches.
+For example, if a user likes a page with class `DJ',
+the user's clubbing vector value is incremented, and if a page is labelled as a
+`Mountain', the app increments the user's nature vector value.
+
+\subsubsection{Transforming the user's photos into the travel interest vector}
+
+
+Convolutional Neural Networks have become a standard
+for classifying an image because of their high
+accuracy~\cite{Zhou2018}. Therefore, we decided to test
+out two approaches for classifying the photos into the
+app's six categories. 
+
+Zhou et al. \cite{Zhou2018} trained several CNNs for
+scene recognition and generic deep scene features for
+visual identification. However, the places365 models
+are not explicitly trained on the six categories of
+our application. Therefore, we need to carefully map
+the 365 categories with our six application's
+categories. That is why we introduced a Tensorflow
+Keras sequential model, explicitly trained on the six
+application's categories to compare.
+
+\paragraph{Pretrained Places365 models:} These models
+are trained on the places365-standard dataset of about
+1.8 million images to classify an image into 365
+different scene categories. We used the Resnet
+places365 models, Resnet-18 and Resnet-50 since they
+achieved the highest top-5 validation accuracy on the
+places365 dataset. The Resnet 18 comprises 18, and the
+Resnet 50 comprises 50 convolutional layers. They both
+converge to an output layer representing the 365
+output categories.  Figure \ref{Models} shows a
+summary of the whole Resnet 18 model architecture.
+
+\paragraph{Trained Tensorflow Keras model: } This
+model contains three convolutional layers with a
+rectified linear unit (ReLu) activation function. A
+pooling layer follows each to lower the input volume's
+spatial dimension for the upcoming layers. The first
+layer is a rescaling layer that resizes an image to
+180$\times$180 pixels. The final layer represents a
+flattening layer and two dense layers to reduce the
+outputs to the six application categories, and another
+representing the `None' classification. Figure
+~\ref{Models} shows a summary of the whole model.
+
+The dataset contains 3600 public internet images
+representing the seven classes: Beach, Nature,
+Museums, Shopping, Clubbing and Bars and None. The
+tensor library provides tools to Split the dataset
+into a training and validation set Distribute the
+photos into batches of 32 Cache the dataset to memory
+to prevent I/O blocking All of the images were resized
+to 180x180 pixels, and the RGB values were normalised
+from zero to one.  	Since the dataset is small
+compared to the places 365 models, the training
+process is prone to overfitting. Data augmentation
+generates additional samples using random
+transformations on the dataset. Figure \ref{Augmentation} shows an
+example of data augmentation on a photo. We also added
+a dropout layer to the model randomly drops sets the
+input values of the neuron. These two techniques help
+the model avoid overfitting.
+
+%\begin{figure}[h]
+%\centering
+%\includegraphics[width=0.55\textwidth]{Models.png}
+%\caption{Model Architectures}
+%\label{Models}
+%\end{figure}
+
+
