@@ -1,15 +1,15 @@
 
-\subsection{Travel Planners for both individual and grouped travellers}
+\subsection{Single Route and Multi Route Planners}
 
 %This section will analyse existing optimisation techniques for TTDP solutions.
 %These include swarm-based, trajectory-based and evolutionary algorithms.
 %Gavalas et al.~\cite{Gavalas2014a} classify TTDP variants into two; Systems
 %that produce a single route and systems that can handle multiple days. 
 
-Trip planner applications aim to offer tourists information in a unified and
-centralised manner, providing them with a plan for their trip. Two domains
-develop current applications: methods for obtaining POIs and tour
-recommendation algorithms that create tourist trips, as shown in Figure~\ref{RS}.
+%Trip planner applications aim to offer tourists information in a unified and
+%centralised manner, providing them with a plan for their trip. Two domains
+%develop current applications: methods for obtaining POIs and tour
+%recommendation algorithms that create tourist trips \cite{Lim2018a}.
 
 %\begin{figure}[h]
 %\centering
@@ -18,38 +18,33 @@ recommendation algorithms that create tourist trips, as shown in Figure~\ref{RS}
 %\label{RS}
 %\end{figure}
 
-\subsubsection{Collecting the Points of Interests}
+%\subsubsection{Collecting the Points of Interests}
 
-Before producing an itinerary, the tourist planners have to
-formulate a dataset of POIs from some data source. There are
-several ways to identify an appropriate data source representing
-real-life tourist trajectories. 
+%Before producing an itinerary, the tourist planners have to
+%formulate a dataset of POIs from some data source. There are
+%several ways to identify an appropriate data source representing
+%real-life tourist trajectories. 
 
-One approach is made by gathering tourist places by mining them from
-geotagged images of Location-Based Social Networks (LSBN) such as Flickr,
-or Facebook~\cite{DeChoudhury2010, Memon2015, Lucchese2012, Lim2018a,
-HuiLim, HuiLima, Kurashima2013, Kurashima2010, Brilhante2013, Brilhante2015 }.
+%One approach is made by gathering tourist places by mining them from
+%geotagged images of Location-Based Social Networks (LSBN) such as Flickr,
+%or Facebook~\cite{DeChoudhury2010, Memon2015}.
 
-A prompt and accurate strategy towards gathering essential places
-in the vicinity uses Mapping \& Location APIs such as Foursquare,
-Google or TripAdvisor. Worndl et al.\cite{Worndl2017} use this approach and build a
-dataset of prominent POIs by querying their API with the user's
-desired location. In return, they receive a sequence of places and
-information about each site, including its category, other user's
-ratings, opening hours, coordinates and helpful additional
-information to use as criteria for the itineraries.
+%A prompt and accurate strategy towards gathering essential places
+%in the vicinity uses Mapping \& Location APIs such as 
+%Google or TripAdvisor. Worndl et al.\cite{Worndl2017} use this approach and build a
+%dataset of prominent POIs by querying their API with the user's
+%desired location. In return, they receive a sequence of places and
+%information about each site to use as criteria for the itineraries.
 
 
-\subsubsection{Single Route Problems}
+%\subsubsection{Single Route Problems}
 
 The Orienteering Problem (OP), introduced by Tsiligirdes
 ~\cite{Tsiligirides1984}, is the foundation of
 single route planners in observance of the sport, orienteering. There are
 various types of OPs that include different constraints, such as time windows
-and time dependency, as shown in figure~\ref{variants}. The OP can be represented as a
-travelling salesman problem with profits. Gavalas et al. 
-and Vansteenwegen et al.~\cite{Gavalas2014a, Vansteenwegen2011b}
-mathematically formulate the OP as follows:
+and time dependency~\cite{Gunawan2016}. The OP can be represented as a
+travelling salesman problem with profits. 
 
 %\input{LitReview/maths.tex}
 %\begin{figure*}[h]
@@ -117,7 +112,7 @@ algorithms and multi-modal shortest pathfinding evaluated in the city of
 Tehran.
 
 
-\subsubsection{Multiple Route Problems.}
+%\subsubsection{Multiple Route Problems.}
 
 The solutions available from what we discussed in the previous sections can only
 generate a single efficient path for a tourist's holiday. The Team Orienteering
@@ -125,8 +120,7 @@ Problem (TOP)~\cite{Chao1996} is a variant of the OP, which allows for
 solving the TTDP with multiple days~\cite{Sylejmani2017}. The system generates a full
 itinerary for the tourist, with a maximum total score of all routes~\cite{Herzog2020}.
 
-Several solutions use PSO-based algorithms to solve the TOP
-~\cite{Muthuswamy2011,Wisittipanich2020,Yu2019}
+Several solutions use PSO-based algorithms to solve the TOP.
 Muthuswamy et al.~\cite{Muthuswamy2011} developed a discrete version of the PSO (DPSO)
 which can generate n routes where $2 \geq n \geq 4$. The algorithm consists of two procedures;
 Random initialisation of n-1 routes. The n\textsuperscript{th}
