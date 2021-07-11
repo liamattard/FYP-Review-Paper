@@ -1,0 +1,46 @@
+\begin{algorithm}[h]
+
+ iter = x \;
+ count = 0 \;
+ particles = RandomBiasInitialiser(); \;
+ bestParticle = particle[0] \;
+
+ \While{count $>$ x}{
+
+     i = 0 \;
+     maxScore = 0 \;
+
+     \While{i $<=$ particles.length}{
+
+         \tcc{Updating personal best}
+        \If{particles[i].score $>$ particles[i].personalBest.score}{
+
+             particles[i].personalBest = particles[i].position\;
+
+         }
+
+         \tcc{Updating global best}
+        \If{particles[i].score $>$ maxScore}{
+
+
+             maxScore = particles[i].score \;
+             bestParticle = particles[i].position \;
+
+         }
+
+         i = i +1 \;
+
+         \tcc{Calculate new position}
+         particle[i].calculateNewPosition() \;
+
+
+
+     }
+     \Return bestParticle
+
+ }
+
+ \caption{Particle Swarm Optimisation}
+    \label{PSOAlgorithm}
+\end{algorithm}
+

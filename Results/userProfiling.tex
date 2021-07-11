@@ -1,0 +1,24 @@
+\subsection{Automatic User Profiling}
+
+We trained the Keras Sequential model using the NVIDIA
+Tesla K80 GPU provided by Google Colab. At 16 epochs,
+the model starts to overfit as the validation loss
+starts to increase. The testing dataset consists of
+500 images manually gathered using the Unsplash API. 
+
+
+When comparing the Resnet 50, Resnet 18 and Keras
+Sequential model,the Reset 50 achieved the best
+average accuracy, precision and recall. The resnet 50 achieved the highest F1 score the
+on testing dataset with an average F1 score of 76.29. So
+we decided to use it as our baseline for the tourist
+itinerary generation application.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.4\textwidth]{F1Score.png}
+\caption{F1 score of the three models}
+\label{f1}
+\end{figure}
+
+

@@ -9,7 +9,7 @@ vector. The predefined constants are:
 \\
 \input{Methodology/maths.tex}
 
-%\input{sections/methodology/travelProducts.tex}
+\input{Methodology/psoAlgorithm.tex}
 
 %\subsubsection{}
 \subsubsection{Optimisation Algorithms}
@@ -28,47 +28,22 @@ to be of bad quality.
 %\input{sections/methodology/psoAlgorithm.tex}
 
 
-\paragraph{Particle Swarm Optimisation}
+%\paragraph{Particle Swarm Optimisation}
 
 In PSO, the whole population is referred to as the
-swarm, whilst a single member a particle. Each
-particle has a 2-dimensional position(P) vector
-representing the current timetable solution and a
-2-dimensional velocity(V) vector expressing the direction
-of the particle during its search period. 
-
-The algorithm has six integer parameters including the
-number of particles and the number of iterations. The
-personal acceleration (PA) affects how far away the
-particle moves from the personal best position (PB). 
-The global best acceleration (GA) attracts the global
-best position (GB) of the whole swarm. 
-The inertia (I) constant helps the particle
-explore new solutions and escape the local minima
-through randomness. 
-
-At each
-iteration, the new velocity is calculated using
-\begin{center}
-    new velocity = I + (PA * (PB - P)) + (GA * (GB - P))
-\end{center}
-
-the new position is calculated using
-\begin{center}
-    new position = P + new velocity 
-\end{center}
-
-After a few iterations have passed, particles use
+swarm, whilst a single member a particle in this case representing a timetable
+solution. Each particle uses its current position, personal best and global best
+to calculate its new position. After a few iterations have passed, particles use
 their velocity and move towards the optimum position.
 We demonstrate the framework of our PSO algorithm in
 algorithm \ref{PSOAlgorithm}.
 
 
-\paragraph{Genetic Algorithms}
+%\paragraph{Genetic Algorithms}
 
 Genetics algorithms use biological terms to describe
 their attributes. For example, a timetable solution in
-population is referred to as a chromosome~\ref{Abbaspour2011}. 
+population is referred to as a chromosome~\cite{Abbaspour2011}. 
 
 In PSO, the algorithm optimises by allowing each
 particle to move closer to the global best every
