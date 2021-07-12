@@ -14,9 +14,9 @@ values, and the app increments a category whenever the
 user's content matches. $v_0$ to $v_3$ represents morning categories
 and $v_4$, $v_5$ represent evening categories. After
 the data collection process is complete, the
-morning and evening vector values are normalised independently. 
+vector values are normalised independently. 
 
-Facebook's API that allows users to connect both their Facebook
+Facebook's API that allows users to connect Facebook
 and Instagram accounts and request content from the user with their permission.
 The app requests the photos and the liked pages used to 
 populate the user's travel interest
@@ -31,7 +31,7 @@ page categories and increments a value in the travel
 interest vector whenever the Facebook result matches.
 For example, if a user likes a page with class `DJ',
 the user's clubbing vector value is incremented, and if a page is labelled as a
-`Mountain', the app increments the user's nature vector value.
+`Mountain', increments the user's nature vector value.
 
 \noindent \textbf{Transforming the user's photos into the travel interest
 vector} Convolutional Neural Networks have become a standard
@@ -70,7 +70,7 @@ layer is a rescaling layer that resizes an image to
 180$\times$180 pixels. The final layer represents a
 flattening layer and two dense layers to reduce the
 outputs to the six application categories, and another
-representing the `None' classification.
+representing `None'.
 
 The dataset contains 3600 public internet images
 representing the seven classes: Beach, Nature,
